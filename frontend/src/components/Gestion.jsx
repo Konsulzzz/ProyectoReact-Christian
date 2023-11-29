@@ -18,9 +18,9 @@ const Gestion = () => {
     const { isAutenticated, userName, userRol, isInvitado } = useSelector((state) => state.login);
     const [user, setUser] = useState({ nombre: '', usuario: '', contraseña: '', rol: '' });
     const [tableData, setTableData] = useState([])
+    var invitado = isInvitado
 
 
-    
     useEffect(() => {
         if (!isAutenticated) {
             navigate('/');
@@ -28,20 +28,14 @@ const Gestion = () => {
     }, [isAutenticated, navigate]);
 
 
-    
-    useEffect(() => {
-        if (isInvitado) {
-            navigate('/home');
-        }
-    }, [isInvitado, navigate]);
-    
-    
+
+
 
 
     useEffect(() => {
         // Realizar el fetch al endpoint /getItems al montar el componente
         fetchTableData(); // Llama a la función para cargar datos al entrar en la página
-      }, []);
+    }, []);
 
     const handleLogout = () => {
         // Despacha la acción de logout al store
@@ -89,7 +83,7 @@ const Gestion = () => {
                 // Manejar errores en caso de que ocurran durante la solicitud
                 console.error('Error durante el fetch:', error.message);
             });
-    }; 
+    };
 
     const handleDeleteItem = async (userId) => {
         try {
@@ -109,6 +103,7 @@ const Gestion = () => {
             console.error('Error durante el fetch:', error.message);
         }
     };
+
     const X = 1;
     return (
         <div>
@@ -123,12 +118,18 @@ const Gestion = () => {
                             <Grid item xs={3} md={2} lg={2}>
                                 <Link to='/home'>Inicio</Link>
                             </Grid>
-                            <Grid item xs={3} md={2} lg={2}>
-                                <Link to='/gestion'>Gestionar Usuarios</Link>
-                            </Grid>
-                            <Grid item xs={3} md={3} lg={2}>
-                                <Link to='/informes'>Informes</Link>
-                            </Grid>
+
+                            {!isInvitado && (
+                                <Grid item xs={3} md={2} lg={2}>
+                                    <Link to='/gestion'>Gestionar Usuarios</Link>
+                                </Grid>
+                            )}
+
+                            {!isInvitado && (
+                                <Grid item xs={3} md={2} lg={2}>
+                                    <Link to='/informes'>Informes</Link>
+                                </Grid>
+                            )}
                             <Grid item xs={3} md={4} lg={2}>
                                 <Link to='/ayuda'>Ayuda</Link>
                             </Grid>
@@ -138,7 +139,6 @@ const Gestion = () => {
                                 </Button>
                             </Grid>
                         </Grid>
-
                     </Toolbar>
                 </Container>
             </AppBar>
@@ -221,7 +221,7 @@ const Gestion = () => {
                 </Table>
             </TableContainer>
         </div>
-        
+
     );
 };
 export default Gestion;

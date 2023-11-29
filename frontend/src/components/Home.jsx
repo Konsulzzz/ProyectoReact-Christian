@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
+import InsertEmoticon from '@mui/icons-material/InsertEmoticon';
 
 function Home() {
     const [item, setItem] = useState({ nombre: '', marca: '', tipo: '', precio: 0 });
@@ -25,31 +27,32 @@ function Home() {
 
     const handleSaveItem = () => {
         // Construir la URL con los parámetros de la consulta
-        if(!isInvitado){const url = `http://localhost:3030/addItem?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio}`;
+        if (!isInvitado) {
+            const url = `http://localhost:3030/addItem?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio}`;
 
-        fetch(url)
-            .then(response => response.json())
-            .then(result => {
-                // Verificar si la inserción fue exitosa
+            fetch(url)
+                .then(response => response.json())
+                .then(result => {
+                    // Verificar si la inserción fue exitosa
 
-                if (result.affectedRows > 0) {
-                    console.log('Inserción exitosa.');
-                    alert('Datos guardados con éxito');
-                    fetchTableData()
-                    // Realizar cualquier acción adicional después de la inserción exitosa
-                } else {
-                    console.error('Error en la inserción.');
-                    // Manejar el caso de error durante la inserción
-                }
-            })
-            .catch(error => {
-                console.error('Error durante el fetch:', error.message);
-                // Manejar el error de la solicitud
-            });
-        }else{
+                    if (result.affectedRows > 0) {
+                        console.log('Inserción exitosa.');
+                        alert('Datos guardados con éxito');
+                        fetchTableData()
+                        // Realizar cualquier acción adicional después de la inserción exitosa
+                    } else {
+                        console.error('Error en la inserción.');
+                        // Manejar el caso de error durante la inserción
+                    }
+                })
+                .catch(error => {
+                    console.error('Error durante el fetch:', error.message);
+                    // Manejar el error de la solicitud
+                });
+        } else {
             alert('No puedes insertar datos - Rol invitado');
 
-            }
+        }
     };
 
     useEffect(() => {
@@ -74,16 +77,18 @@ function Home() {
     const handleDeleteItem = async (itemId) => {
         try {
             // Realizar la solicitud fetch al endpoint /deleteItem con el id del elemento a eliminar
-            if(!isInvitado){const response = await fetch(`http://localhost:3030/deleteItem?id=${itemId}`);
+            if (!isInvitado) {
+                const response = await fetch(`http://localhost:3030/deleteItem?id=${itemId}`);
 
-            if (response.ok) {
-                // Si la solicitud es exitosa, puedes realizar alguna acción adicional si es necesario
-                console.log('Elemento eliminado con éxito.');
-                fetchTableData()
+                if (response.ok) {
+                    // Si la solicitud es exitosa, puedes realizar alguna acción adicional si es necesario
+                    console.log('Elemento eliminado con éxito.');
+                    fetchTableData()
+                } else {
+                    // Manejar errores si la respuesta no es exitosa
+                    console.error('Error durante la eliminación:', response.statusText);
+                }
             } else {
-                // Manejar errores si la respuesta no es exitosa
-                console.error('Error durante la eliminación:', response.statusText);
-            }}else{
                 alert('No puedes borrar datos - Rol invitado')
             }
         } catch (error) {
@@ -104,11 +109,11 @@ function Home() {
                 // Manejar errores en caso de que ocurran durante la solicitud
                 console.error('Error durante el fetch:', error.message);
             });
-    }; 
+    };
     useEffect(() => {
         // Realizar el fetch al endpoint /getItems al montar el componente
         fetchTableData(); // Llama a la función para cargar datos al entrar en la página
-      }, []);
+    }, []);
     const X = 1;
 
     return (
@@ -118,18 +123,24 @@ function Home() {
                     <Toolbar>
                         <Grid container justifyContent="center" alignItems="center" style={{ height: '7vh' }}>
                             <Grid item xs={3} md={2} lg={2}>
-                                <AdbIcon />
+                            {!isInvitado && (<AdbIcon />)}
+                            {isInvitado && (<InsertEmoticon />)}
                                 <Typography>Christian Santana Morales</Typography>
                             </Grid>
                             <Grid item xs={3} md={2} lg={2}>
                                 <Link to='/home'>Inicio</Link>
                             </Grid>
-                            <Grid item xs={3} md={2} lg={2}>
-                                <Link to='/gestion'>Gestionar Usuarios</Link>
-                            </Grid>
-                            <Grid item xs={3} md={3} lg={2}>
+
+
+                            {!isInvitado && (
+                                <Grid item xs={3} md={2} lg={2}>
+                                    <Link to='/gestion'>Gestionar Usuarios</Link>
+                                </Grid>
+                            )}
+
+                            {!isInvitado && (<Grid item xs={3} md={3} lg={2}>
                                 <Link to='/informes'>Informes</Link>
-                            </Grid>
+                            </Grid>)}
                             <Grid item xs={3} md={4} lg={2}>
                                 <Link to='/ayuda'>Ayuda</Link>
                             </Grid>
@@ -139,7 +150,6 @@ function Home() {
                                 </Button>
                             </Grid>
                         </Grid>
-
                     </Toolbar>
                 </Container>
             </AppBar>
