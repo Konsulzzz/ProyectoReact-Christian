@@ -12,17 +12,16 @@ import AdbIcon from '@mui/icons-material/Adb';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
 import InsertEmoticon from '@mui/icons-material/InsertEmoticon';
+import Topbar from './Topbar';
 
 function Home() {
     const [item, setItem] = useState({ nombre: '', marca: '', tipo: '', precio: 0 });
-
-    const dispatch = useDispatch();
+    const { isAutenticated, userName, userRol, isInvitado } = useSelector((state) => state.login);
     const navigate = useNavigate();
     const [tableData, setTableData] = useState([])
 
 
 
-    const { isAutenticated, userName, userRol, isInvitado } = useSelector((state) => state.login);
 
 
     const handleSaveItem = () => {
@@ -61,13 +60,7 @@ function Home() {
         }
     }, [isAutenticated, navigate]);
 
-    const handleLogout = () => {
-        // Despacha la acción de logout al store
-        dispatch(loginActions.logout());
-
-        // Navega a la página principal
-        navigate('/');
-    };
+   
 
     // Mostrar datos en la consola
     useEffect(() => {
@@ -118,44 +111,10 @@ function Home() {
 
     return (
         <div>
-            <AppBar position='static'>
-                <Container>
-                    <Toolbar>
-                        <Grid container justifyContent="center" alignItems="center" style={{ height: '7vh' }}>
-                            <Grid item xs={3} md={2} lg={2}>
-                            {!isInvitado && (<AdbIcon />)}
-                            {isInvitado && (<InsertEmoticon />)}
-                                <Typography>Christian Santana Morales</Typography>
-                            </Grid>
-                            <Grid item xs={3} md={2} lg={2}>
-                                <Link to='/home'>Inicio</Link>
-                            </Grid>
-
-
-                            {!isInvitado && (
-                                <Grid item xs={3} md={2} lg={2}>
-                                    <Link to='/gestion'>Gestionar Usuarios</Link>
-                                </Grid>
-                            )}
-
-                            {!isInvitado && (<Grid item xs={3} md={3} lg={2}>
-                                <Link to='/informes'>Informes</Link>
-                            </Grid>)}
-                            <Grid item xs={3} md={4} lg={2}>
-                                <Link to='/ayuda'>Ayuda</Link>
-                            </Grid>
-                            <Grid item xs={12} md={5} lg={1}>
-                                <Button variant="RELLENAR" onClick={handleLogout}>
-                                    Salir
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Toolbar>
-                </Container>
-            </AppBar>
+            <Topbar></Topbar>
 
             {/* Formulario */}
-            <Paper /* AÑADIR PROPIEDADES PARA EL PAPEL */>
+            <Paper style={{ padding: "7px" }}>
                 <Box component='form' autoComplete='off' onSubmit={handleSaveItem}>
                     <Grid container justifyContent="center" alignItems="center" style={{ height: '7vh' }}>
                         <Grid item xs={X} md={X}>
@@ -203,7 +162,7 @@ function Home() {
 
 
             <TableContainer>
-                <Table aria-label='Nombre Tabla para accesibilidad'>
+                <Table aria-label='Tabla de colección'>
                     <TableHead>
                         <TableRow>
                             <TableCell>Eliminar</TableCell>

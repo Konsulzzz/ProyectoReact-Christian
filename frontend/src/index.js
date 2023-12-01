@@ -31,37 +31,78 @@ const theme = createTheme({
       disabled: 'rgba(103,83,83,0.38)',
       hint: '#565269',
     },
-    
   },
   typography: {
     fontFamily: 'Oswald',
-    fontSize: 10,
+    fontSize: 12,
     fontWeightLight: 1000,
     fontWeightRegular: 100,
     h1: {
       fontFamily: 'Oswald',
     },
   },
-  link:{
+  link: {
     color: '#FFFFFF',
   },
-  overrides: {
+  components: {
     MuiTable: {
-      root: {
-        
-        backgroundColor: '#3f51b5',
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ecf0f1',
+        },
+      },
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#2c3e50',
+        },
+      },
+    },
+    MuiTableBody: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ecf0f1',
+        },
       },
     },
     MuiTableCell: {
-      root: {
-        // Customize the styles of table cells
-        color: 'black', // Set text color to white
-      },
-      head: {
-        // Customize the styles of table header cells
-        fontWeight: 'bold', // Make the header text bold
+      styleOverrides: {
+        root: {
+          borderBottom: '4px solid #bdc3c7',
+          boxShadow: '0 2px 4px rgba(1, 1, 1, 1.1)',
+        },
+        head: {
+          color: '#111111',
+          fontWeight: 'bold',
+        },
       },
     },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&:nth-of-type(odd)': {
+            backgroundColor: '#ecf0f1',
+          },
+          
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          border: '3px solid #111111', // Añade el borde al Paper
+        },
+      },
+    },
+    
   },
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));

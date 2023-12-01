@@ -15,7 +15,7 @@ const authSlice = createSlice({
             state.isAutenticated = true
             state.userName = userData.name
             state.userRol = userData.rol
-            if(state.userRol == 'invitado'){
+            if(state.userRol === 'invitado'){
                 state.isInvitado = true
             }
         },

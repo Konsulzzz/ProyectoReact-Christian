@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Topbar from './Topbar';
 
 const Gestion = () => {
 
@@ -107,43 +108,9 @@ const Gestion = () => {
     const X = 1;
     return (
         <div>
-            <AppBar position='static'>
-                <Container>
-                    <Toolbar>
-                        <Grid container justifyContent="center" alignItems="center" style={{ height: '7vh' }}>
-                            <Grid item xs={3} md={2} lg={2}>
-                                <AdbIcon />
-                                <Typography>Christian Santana Morales</Typography>
-                            </Grid>
-                            <Grid item xs={3} md={2} lg={2}>
-                                <Link to='/home'>Inicio</Link>
-                            </Grid>
+            <Topbar></Topbar>
 
-                            {!isInvitado && (
-                                <Grid item xs={3} md={2} lg={2}>
-                                    <Link to='/gestion'>Gestionar Usuarios</Link>
-                                </Grid>
-                            )}
-
-                            {!isInvitado && (
-                                <Grid item xs={3} md={2} lg={2}>
-                                    <Link to='/informes'>Informes</Link>
-                                </Grid>
-                            )}
-                            <Grid item xs={3} md={4} lg={2}>
-                                <Link to='/ayuda'>Ayuda</Link>
-                            </Grid>
-                            <Grid item xs={12} md={5} lg={1}>
-                                <Button variant="RELLENAR" onClick={handleLogout}>
-                                    Salir
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-
-            <Paper /* AÑADIR PROPIEDADES PARA EL PAPEL */>
+            <Paper style={{ padding: "7px" }}>
                 <Box component='form' autoComplete='off' onSubmit={handleSaveItem}>
                     <Grid container justifyContent="center" alignItems="center" style={{ height: '7vh' }}>
                         <Grid item xs={X} md={X}>
