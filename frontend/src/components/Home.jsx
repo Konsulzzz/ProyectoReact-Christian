@@ -82,7 +82,7 @@ function Home() {
                     console.error('Error durante la eliminación:', response.statusText);
                 }
             } else {
-                alert('No puedes borrar datos - Rol invitado')
+                alert('No puedes borrar datos - Necesitas ser administrador')
             }
         } catch (error) {
             // Manejar errores en caso de que ocurran durante la solicitud
