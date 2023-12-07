@@ -3,7 +3,8 @@ const initialAuthState = {
     isAutenticated: false,
     userName: '',
     userRol: '',
-    isInvitado: false
+    isInvitado: false,
+    isUser: false
 
 }
 const authSlice = createSlice({
@@ -15,14 +16,19 @@ const authSlice = createSlice({
             state.isAutenticated = true
             state.userName = userData.name
             state.userRol = userData.rol
+
             if(state.userRol === 'invitado'){
                 state.isInvitado = true
+            }
+            if(state.userRol === 'user'){
+                state.isUser = true
             }
         },
         logout: (state) => {
             state.isAutenticated = false
             state.userName = ''
             state.userRol = ''
+       
         }
     }
 })

@@ -16,7 +16,7 @@ import Topbar from './Topbar';
 
 function Home() {
     const [item, setItem] = useState({ nombre: '', marca: '', tipo: '', precio: 0 });
-    const { isAutenticated, userName, userRol, isInvitado } = useSelector((state) => state.login);
+    const { isAutenticated, userName, userRol, isInvitado, isUser } = useSelector((state) => state.login);
     const navigate = useNavigate();
     const [tableData, setTableData] = useState([])
 
@@ -70,7 +70,7 @@ function Home() {
     const handleDeleteItem = async (itemId) => {
         try {
             // Realizar la solicitud fetch al endpoint /deleteItem con el id del elemento a eliminar
-            if (!isInvitado) {
+            if (!isInvitado && !isUser) {
                 const response = await fetch(`http://localhost:3030/deleteItem?id=${itemId}`);
 
                 if (response.ok) {
@@ -127,7 +127,7 @@ function Home() {
                         </Grid>
                         <Grid item xs={X} md={X}>
                             <TextField
-                                label='Marca'
+                                label='Editorial'
                                 required
                                 value={item.marca}
                                 onChange={(event) => setItem({ ...item, marca: event.target.value })}
@@ -152,7 +152,7 @@ function Home() {
                         </Grid>
                         {/* Otros campos TextField según sea necesario */}
                         <Grid item xs={X} md={X}>
-                            <Button type='button' onClick={handleSaveItem}>
+                            <Button type='Button' onClick={handleSaveItem}>
                                 Guardar
                             </Button>
                         </Grid>
@@ -168,7 +168,7 @@ function Home() {
                             <TableCell>Eliminar</TableCell>
                             <TableCell>ID</TableCell>
                             <TableCell>Nombre</TableCell>
-                            <TableCell>Marca</TableCell>
+                            <TableCell>Editorial</TableCell>
                             <TableCell>Tipo</TableCell>
                             <TableCell>Precio</TableCell>
                             {/* Agrega más encabezados según sea necesario */}

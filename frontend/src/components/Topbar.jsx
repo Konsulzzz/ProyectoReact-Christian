@@ -14,7 +14,7 @@ import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon'
 import InsertEmoticon from '@mui/icons-material/InsertEmoticon';
 function Topbar() {
     const dispatch = useDispatch();
-    const { isAutenticated, userName, userRol, isInvitado } = useSelector((state) => state.login);
+    const { isAutenticated, userName, userRol, isInvitado, isUser } = useSelector((state) => state.login);
     const navigate = useNavigate();
     const handleLogout = () => {
         // Despacha la acción de logout al store
@@ -32,21 +32,20 @@ function Topbar() {
                             <Grid item xs={3} md={2} lg={2}>
                             {!isInvitado && (<AdbIcon />)}
                             {isInvitado && (<InsertEmoticon />)}
-                                <Typography>{userName}</Typography>
+                                <Typography>"Nombre de usuario"{userName} "Rol" {userRol}</Typography>
                             </Grid>
                             <Grid item xs={3} md={2} lg={2}>
                             <Link to='/home' style={{ color: 'white' }}>Inicio</Link>
                             </Grid>
 
 
-                            {!isInvitado && (
+                            {!isInvitado && !isUser && (
                                 <Grid item xs={3} md={2} lg={2}>
                                     <Link to='/gestion' style={{ color: 'white' }}>Gestionar Usuarios</Link>
 
                                 </Grid>
                             )}
-
-                            {!isInvitado && (<Grid item xs={3} md={2} lg={2}>
+                            {!isInvitado && !isUser && (<Grid item xs={3} md={2} lg={2}>
                                 <Link to='/informe' style={{ color: 'white' }}>Informes</Link>
                             </Grid>)}
                             <Grid item xs={3} md={2} lg={2}>

@@ -12,7 +12,7 @@ function InformeColeccion(props) {
     
     const col = [
         { title: "Nombre", field: "nombre", filtering: false },
-        { title: "Marca", field: "marca" },
+        { title: "Editorial", field: "marca" },
         { title: "Tipo", field: "tipo" },
         { title: "Precio", field: "precio", type: "numeric", filtering: false }
     ];
