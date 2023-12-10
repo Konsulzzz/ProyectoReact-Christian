@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginActions } from '../store/storelogin';
 import { Link } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 
 import {
     AppBar, Container, Toolbar, Grid, Typography, Button, Paper, Box, TextField, Table, TableContainer, TableHead, TableBody, TableCell, TableRow
@@ -151,11 +152,13 @@ function Home() {
                             />
                         </Grid>
                         {/* Otros campos TextField según sea necesario */}
-                        <Grid item xs={X} md={X}>
-                            <Button type='Button' onClick={handleSaveItem}>
-                                Guardar
-                            </Button>
-                        </Grid>
+                        <Tooltip title="Haz clic para insertar los datos en la tabla">
+    <Grid item xs={X} md={X}>
+        <Button type='button' onClick={handleSaveItem}>
+            Guardar
+        </Button>
+    </Grid>
+</Tooltip>
                     </Grid>
                 </Box>
             </Paper>
@@ -177,11 +180,13 @@ function Home() {
                     <TableBody>
                         {tableData.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell>
-                                    <Button onClick={() => handleDeleteItem(row.id)}>
-                                        <DeleteForeverIcon />
-                                    </Button>
-                                </TableCell>
+                               <Tooltip title="Haz clic para eliminar esta fila de datos">
+    <TableCell>
+        <Button onClick={() => handleDeleteItem(row.id)}>
+            <DeleteForeverIcon />
+        </Button>
+    </TableCell>
+</Tooltip>
                                 <TableCell>{row.id}</TableCell>
                                 <TableCell>{row.nombre}</TableCell>
                                 <TableCell>{row.marca}</TableCell>

@@ -49,7 +49,7 @@ function Topbar() {
                                 <Link to='/informe' style={{ color: 'white' }}>Informes</Link>
                             </Grid>)}
                             <Grid item xs={3} md={2} lg={2}>
-                            <Link to='/ayuda' style={{ color: 'white' }}>Ayuda</Link>
+                            <Link to={'/Santana_Morales_Christian_EXUT4_Manual.pdf'} target='_blank'>Ayuda</Link>
                             </Grid>
                             <Grid item xs={12} md={5} lg={1}>
                                 <Button variant="RELLENAR" onClick={handleLogout}>

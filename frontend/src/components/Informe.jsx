@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from "@material-table/core";
 import InformeColeccion from './InformeColeccion';
 import Topbar from './Topbar';
+
 import {
     AppBar, Container, Toolbar, Grid, Typography, Button, Paper, Box, TextField, Table, TableContainer, TableHead, TableBody, TableCell, TableRow
 } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 
 import { ExportCsv, ExportPdf } from "@material-table/exporters";
 
@@ -40,17 +42,17 @@ function Informe() {
     };
 
     return (
-       
-            <div>
-                <Topbar />
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <div>
+            <Topbar />
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <Tooltip title="Haz clic para generar un informe de la tabla de libros" arrow>
                     <Button variant="contained" color="secondary" onClick={handleGenerateReport}>
                         Generar Informe
                     </Button>
-                </div>
-                {generateReport && <InformeColeccion datos={tableData} />}
+                </Tooltip>
             </div>
-    
+            {generateReport && <InformeColeccion datos={tableData} />}
+        </div>
     );
 }
 
